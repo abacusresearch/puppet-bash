@@ -1,3 +1,10 @@
+## 2016-11-30 Release 1.4.0
+
+### Summary
+
+- [Puppet] Fix version of module puppet/extlib and puppetlabs/stdlib
+- [Puppet] Remove OS dependency
+
 ## 2016-11-30 Release 1.3.2
 
 ### Summary

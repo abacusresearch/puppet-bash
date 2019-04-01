@@ -33,11 +33,4 @@ class bash::params {
     default => 'Package[bash]',
   }
 
-  case $::osfamily {
-    'Debian': {
-    }
-    default: {
-      fail("${::operatingsystem} not supported.")
-    }
-  }
 }
