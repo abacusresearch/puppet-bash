@@ -1,27 +1,19 @@
 # == Define: bash::define
 #
 define bash::define (
-  $config_file_path         = undef,
-  $config_file_owner        = undef,
-  $config_file_group        = undef,
-  $config_file_mode         = undef,
-  $config_file_source       = undef,
-  $config_file_string       = undef,
-  $config_file_template     = undef,
+  $config_file_path                          = undef,
+  Optional[String] $config_file_owner        = undef,
+  Optional[String] $config_file_group        = undef,
+  Optional[String] $config_file_mode         = undef,
+  Optional[String] $config_file_source       = undef,
+  Optional[String] $config_file_string       = undef,
+  Optional[String] $config_file_template     = undef,
 
-  $config_file_require      = undef,
+  Optional[String] $config_file_require      = undef,
 
-  $config_file_options_hash = $::bash::config_file_options_hash,
+  $config_file_options_hash                  = $::bash::config_file_options_hash,
 ) {
   if $config_file_path { validate_absolute_path($config_file_path) }
-  if $config_file_owner { validate_string($config_file_owner) }
-  if $config_file_group { validate_string($config_file_group) }
-  if $config_file_mode { validate_string($config_file_mode) }
-  if $config_file_source { validate_string($config_file_source) }
-  if $config_file_string { validate_string($config_file_string) }
-  if $config_file_template { validate_string($config_file_template) }
-
-  if $config_file_require { validate_string($config_file_require) }
 
   $_config_file_path  = pick($config_file_path, "${::bash::config_dir_path}/${name}")
   $_config_file_owner = pick($config_file_owner, $::bash::config_file_owner)
