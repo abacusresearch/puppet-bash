@@ -6,8 +6,8 @@ class bash (
   Array[Any] $package_list                                   = $::bash::params::package_list,
 
   Optional[Stdlib::Absolutepath] $config_dir_path            = $::bash::params::config_dir_path,
-  $config_dir_purge                                          = false,
-  $config_dir_recurse                                        = true,
+  Boolean $config_dir_purge                                  = false,
+  Boolean $config_dir_recurse                                = true,
   Optional[String] $config_dir_source                        = undef,
 
   Optional[Stdlib::Absolutepath] $config_file_path           = $::bash::params::config_file_path,
@@ -26,9 +26,6 @@ class bash (
   $color_prompt                                              = '\[\033[01;32m\]',
   $hostname_prompt                                           = '\h',
 ) inherits ::bash::params {
-  validate_bool($config_dir_purge)
-  validate_bool($config_dir_recurse)
-
   validate_hash($config_file_hash)
   validate_hash($config_file_options_hash)
 
