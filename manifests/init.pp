@@ -5,12 +5,12 @@ class bash (
   String $package_name                                       = $::bash::params::package_name,
   Array[Any] $package_list                                   = $::bash::params::package_list,
 
-  $config_dir_path                                           = $::bash::params::config_dir_path,
+  Optional[Stdlib::Absolutepath] $config_dir_path            = $::bash::params::config_dir_path,
   $config_dir_purge                                          = false,
   $config_dir_recurse                                        = true,
   Optional[String] $config_dir_source                        = undef,
 
-  $config_file_path                                          = $::bash::params::config_file_path,
+  Optional[Stdlib::Absolutepath] $config_file_path           = $::bash::params::config_file_path,
   String $config_file_owner                                  = $::bash::params::config_file_owner,
   String $config_file_group                                  = $::bash::params::config_file_group,
   String $config_file_mode                                   = $::bash::params::config_file_mode,
@@ -26,11 +26,8 @@ class bash (
   $color_prompt                                              = '\[\033[01;32m\]',
   $hostname_prompt                                           = '\h',
 ) inherits ::bash::params {
-  validate_absolute_path($config_dir_path)
   validate_bool($config_dir_purge)
   validate_bool($config_dir_recurse)
-
-  validate_absolute_path($config_file_path)
 
   validate_hash($config_file_hash)
   validate_hash($config_file_options_hash)
