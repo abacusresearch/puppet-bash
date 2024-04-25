@@ -3,7 +3,7 @@
 class bash (
   Enum['absent','latest','present','purged'] $package_ensure = 'present',
   String $package_name                                       = $::bash::params::package_name,
-  $package_list                                              = $::bash::params::package_list,
+  Array[Any] $package_list                                   = $::bash::params::package_list,
 
   $config_dir_path                                           = $::bash::params::config_dir_path,
   $config_dir_purge                                          = false,
@@ -26,8 +26,6 @@ class bash (
   $color_prompt                                              = '\[\033[01;32m\]',
   $hostname_prompt                                           = '\h',
 ) inherits ::bash::params {
-  if $package_list { validate_array($package_list) }
-
   validate_absolute_path($config_dir_path)
   validate_bool($config_dir_purge)
   validate_bool($config_dir_recurse)
