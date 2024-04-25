@@ -20,14 +20,12 @@ class bash (
 
   String $config_file_require                                = $::bash::params::config_file_require,
 
-  $config_file_hash                                          = {},
-  $config_file_options_hash                                  = {},
+  Hash $config_file_hash                                     = {},
+  Hash $config_file_options_hash                             = {},
 
   $color_prompt                                              = '\[\033[01;32m\]',
   $hostname_prompt                                           = '\h',
 ) inherits ::bash::params {
-  validate_hash($config_file_hash)
-  validate_hash($config_file_options_hash)
 
   $config_file_content = default_content($config_file_string, $config_file_template)
 
