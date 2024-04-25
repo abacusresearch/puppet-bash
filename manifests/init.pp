@@ -1,32 +1,31 @@
 # == Class: bash
 #
 class bash (
-  $package_ensure           = 'present',
-  $package_name             = $::bash::params::package_name,
-  $package_list             = $::bash::params::package_list,
+  Enum['absent','latest','present','purged'] $package_ensure = 'present',
+  $package_name                                              = $::bash::params::package_name,
+  $package_list                                              = $::bash::params::package_list,
 
-  $config_dir_path          = $::bash::params::config_dir_path,
-  $config_dir_purge         = false,
-  $config_dir_recurse       = true,
-  $config_dir_source        = undef,
+  $config_dir_path                                           = $::bash::params::config_dir_path,
+  $config_dir_purge                                          = false,
+  $config_dir_recurse                                        = true,
+  $config_dir_source                                         = undef,
 
-  $config_file_path         = $::bash::params::config_file_path,
-  $config_file_owner        = $::bash::params::config_file_owner,
-  $config_file_group        = $::bash::params::config_file_group,
-  $config_file_mode         = $::bash::params::config_file_mode,
-  $config_file_source       = undef,
-  $config_file_string       = undef,
-  $config_file_template     = undef,
+  $config_file_path                                          = $::bash::params::config_file_path,
+  $config_file_owner                                         = $::bash::params::config_file_owner,
+  $config_file_group                                         = $::bash::params::config_file_group,
+  $config_file_mode                                          = $::bash::params::config_file_mode,
+  $config_file_source                                        = undef,
+  $config_file_string                                        = undef,
+  $config_file_template                                      = undef,
 
-  $config_file_require      = $::bash::params::config_file_require,
+  $config_file_require                                       = $::bash::params::config_file_require,
 
-  $config_file_hash         = {},
-  $config_file_options_hash = {},
+  $config_file_hash                                          = {},
+  $config_file_options_hash                                  = {},
 
-  $color_prompt             = '\[\033[01;32m\]',
-  $hostname_prompt          = '\h',
+  $color_prompt                                              = '\[\033[01;32m\]',
+  $hostname_prompt                                           = '\h',
 ) inherits ::bash::params {
-  validate_re($package_ensure, '^(absent|latest|present|purged)$')
   validate_string($package_name)
   if $package_list { validate_array($package_list) }
 
@@ -62,8 +61,8 @@ class bash (
     $config_file_ensure = 'present'
   }
 
-  validate_re($config_dir_ensure, '^(absent|directory)$')
-  validate_re($config_file_ensure, '^(absent|present)$')
+  assert_type(Enum['absent','directory'], $config_dir_ensure)
+  assert_type(Enum['absent','present'], $config_file_ensure)
 
   anchor { 'bash::begin': } ->
   class { '::bash::install': } ->
