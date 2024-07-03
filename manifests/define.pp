@@ -17,7 +17,7 @@ define bash::define (
   $_config_file_owner = pick($config_file_owner, $::bash::config_file_owner)
   $_config_file_group = pick($config_file_group, $::bash::config_file_group)
   $_config_file_mode = pick($config_file_mode, $::bash::config_file_mode)
-  $config_file_content = default_content($config_file_string, $config_file_template)
+  $config_file_content = extlib::default_content($config_file_string, $config_file_template)
 
   $_config_file_require = pick($config_file_require, $::bash::config_file_require)
 

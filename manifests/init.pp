@@ -27,7 +27,7 @@ class bash (
   $hostname_prompt                                           = '\h',
 ) inherits ::bash::params {
 
-  $config_file_content = default_content($config_file_string, $config_file_template)
+  $config_file_content = extlib::default_content($config_file_string, $config_file_template)
 
   if $config_file_hash {
     create_resources('bash::define', $config_file_hash)
